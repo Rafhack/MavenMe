@@ -4,7 +4,7 @@
     <string name="title_activity_maven_search">Search dependencies</string>
     <string name="sign_in_to_view_dependencies">To load personal dependencies, please attach a Google account</string>
     <string name="you_dont_have_dependencies">You don\'t have dependencies yet!</string>
-    <string name="search_dependency_name">Search the Central Repository</string>
+    <string name="search_dependency_name">Search The Central Repository</string>
     <string name="name"><![CDATA[<b>Name:</b> %s]]></string>
     <string name="group"><![CDATA[<b>Group:</b> %s]]></string>
     <string name="latest_version"><![CDATA[<b>Latest version:</b> %s (%s)]]></string>

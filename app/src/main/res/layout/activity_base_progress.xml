@@ -34,7 +34,7 @@
             android:id="@+id/activity_base_progress_frm_progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#30000000"
+            android:background="#60000000"
             android:clickable="true"
             android:focusable="true"
             android:visibility="gone"

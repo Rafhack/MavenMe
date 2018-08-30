@@ -61,6 +61,9 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
 
         imbClearSearch.setOnClickListener {
             edtSearch.setText("")
+            edtSearch.requestFocus()
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(edtSearch, InputMethodManager.SHOW_IMPLICIT)
             rcvSuggestions.visibility = GONE
         }
     }
@@ -70,6 +73,7 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
     }
 
     override fun showSearchResult() {
+        rcvSuggestions.visibility = GONE
         rcvSearchResults.adapter.notifyDataSetChanged()
     }
 
