@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".myDependencies.MyDependencies"
+            android:name=".myDependencies.MyDependenciesActivity"
             android:label="@string/title_activity_my_dependencies"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
