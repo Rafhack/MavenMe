@@ -2,11 +2,13 @@ package com.firebaseapp.mavenuptodate.mavenme.myDependencies
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View.GONE
 import com.firebaseapp.mavenuptodate.mavenme.R
 import com.firebaseapp.mavenuptodate.mavenme.base.BaseProgressActivity
-import com.firebaseapp.mavenuptodate.mavenme.data.entities.MavenSearchAtifact
-import com.firebaseapp.mavenuptodate.mavenme.domain.UserAuthInteractor
+import com.firebaseapp.mavenuptodate.mavenme.data.domain.UserAuthInteractor
+import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
 import kotlinx.android.synthetic.main.activity_base_progress.*
+import kotlinx.android.synthetic.main.activity_my_dependencies.*
 
 class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.View {
 
@@ -18,6 +20,11 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
         setSupportActionBar(toolbar)
         presenter.attach(this)
         presenter.authUser()
+        setupView()
+    }
+
+    private fun setupView() {
+        signInButton.setOnClickListener { presenter.authUser() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -29,12 +36,13 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
         if (active) showProgress() else hideProgress()
     }
 
-    override fun showDependencies(dependencies: ArrayList<MavenSearchAtifact>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showSuggestions(suggestions: ArrayList<String>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showDependencies(dependencies: ArrayList<Dependency>) {
+        rcvDependencies.background = null
+        signInButton.visibility = GONE
+        if (dependencies.isEmpty())
+            tvwLoginToLoad.setText(R.string.you_dont_have_dependencies)
+        else
+            tvwLoginToLoad.visibility = GONE
     }
 
 }

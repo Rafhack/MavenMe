@@ -2,7 +2,7 @@ package com.firebaseapp.mavenuptodate.mavenme.myDependencies
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
-import com.firebaseapp.mavenuptodate.mavenme.domain.UserAuthInteractor
+import com.firebaseapp.mavenuptodate.mavenme.data.domain.UserAuthInteractor
 
 
 class MyDependenciesPresenter : MyDependenciesContract.Presenter {
@@ -11,20 +11,21 @@ class MyDependenciesPresenter : MyDependenciesContract.Presenter {
     private val userAuthInteractor = UserAuthInteractor()
 
     override fun loadMyDependencies() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun searchMaven(search: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.setProgress(true)
+        view.showDependencies(arrayListOf())
+        view.setProgress(false)
     }
 
     override fun authUser() {
-        userAuthInteractor.authUser(view as AppCompatActivity)
+        val authenticated = userAuthInteractor.authUser(view as AppCompatActivity)
+        if (authenticated) loadMyDependencies()
     }
 
     override fun googleAuthResult(data: Intent?) {
         view.setProgress(true)
-        userAuthInteractor.googleAuthResult(view as AppCompatActivity, data) { view.setProgress(false) }
+        userAuthInteractor.googleAuthResult(view as AppCompatActivity, data) { success ->
+            if (success) loadMyDependencies() else view.setProgress(false)
+        }
     }
 
     override fun attach(view: MyDependenciesContract.View) {
