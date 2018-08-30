@@ -1,6 +1,7 @@
 package com.firebaseapp.mavenuptodate.mavenme.mavenSearch
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,11 +10,12 @@ import android.text.TextWatcher
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import com.firebaseapp.mavenuptodate.mavenme.R
 import com.firebaseapp.mavenuptodate.mavenme.base.BaseProgressActivity
+import com.firebaseapp.mavenuptodate.mavenme.dependencyDetail.DependencyDetailActivity
 import kotlinx.android.synthetic.main.activity_base_progress.*
 import kotlinx.android.synthetic.main.activity_maven_search.*
+import org.parceler.Parcels
 import java.util.*
 
 
@@ -35,7 +37,9 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
     private fun setupView() {
         fab.visibility = GONE
         rcvSearchResults.adapter = MavenSearchAdapter(presenter.searchResults) {
-            Toast.makeText(this, it.id, Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, DependencyDetailActivity::class.java)
+            intent.putExtra("dependency", Parcels.wrap(it))
+            startActivity(intent)
         }
 
         edtSearch.requestFocus()

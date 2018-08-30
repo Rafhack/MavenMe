@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit.SECONDS
 
 object ServiceGenerator {
 
-    fun <S> createService(serviceClass: Class<S>): S {
+    fun <S> createService(serviceClass: Class<S>, xml: Boolean = false): S {
 
         val defaultTimeOut = 60L
 
@@ -24,12 +24,15 @@ object ServiceGenerator {
                 .readTimeout(defaultTimeOut, SECONDS)
                 .addNetworkInterceptor { it.proceed(it.request().newBuilder().build()) }
 
-        val retrofit = Retrofit.Builder()
+        val retrofitBuilder = Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
                 .client(builder.build())
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .addConverterFactory(SimpleXmlConverterFactory.createNonStrict(Persister(AnnotationStrategy())))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+
+        val retrofit = if (xml) retrofitBuilder
+                .addConverterFactory(SimpleXmlConverterFactory.createNonStrict(Persister(AnnotationStrategy())))
+                .build() else retrofitBuilder
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                 .build()
 
         return retrofit.create(serviceClass)

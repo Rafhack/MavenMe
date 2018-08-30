@@ -23,6 +23,7 @@
         <activity
             android:name=".mavenSearch.MavenSearchActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".dependencyDetail.DependencyDetailActivity"></activity>
     </application>
 
 </manifest>

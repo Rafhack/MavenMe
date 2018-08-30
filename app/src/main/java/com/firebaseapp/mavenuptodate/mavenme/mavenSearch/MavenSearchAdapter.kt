@@ -38,15 +38,15 @@ class MavenSearchAdapter(private val results: ArrayList<MavenSearchArtifact>, pr
             val item = results[position]
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                tvwArtifactName.text = Html.fromHtml(itemView.context.getString(R.string.name, item.id), Html.FROM_HTML_MODE_LEGACY)
+                tvwArtifactName.text = Html.fromHtml(itemView.context.getString(R.string.name, item.artifactId), Html.FROM_HTML_MODE_LEGACY)
                 tvwArtifactGroup.text = Html.fromHtml(itemView.context.getString(R.string.group, item.group), Html.FROM_HTML_MODE_LEGACY)
-                tvwVersion.text = Html.fromHtml(itemView.context.getString(R.string.latest_version, item.latestVersion, item.versionCount.toString()), Html.FROM_HTML_MODE_LEGACY)
+                tvwVersion.text = Html.fromHtml(itemView.context.getString(R.string.latest_version, item.currentVersion, item.versionCount.toString()), Html.FROM_HTML_MODE_LEGACY)
                 calendar.timeInMillis = item.timeStamp
                 tvwLastUpdated.text = Html.fromHtml(itemView.context.getString(R.string.last_updated, sdf.format(calendar.time)), Html.FROM_HTML_MODE_LEGACY)
             } else @Suppress("DEPRECATION") {
-                tvwArtifactName.text = Html.fromHtml(itemView.context.getString(R.string.name, item.id))
+                tvwArtifactName.text = Html.fromHtml(itemView.context.getString(R.string.name, item.artifactId))
                 tvwArtifactGroup.text = Html.fromHtml(itemView.context.getString(R.string.group, item.group))
-                tvwVersion.text = Html.fromHtml(itemView.context.getString(R.string.latest_version, item.latestVersion, item.versionCount.toString()))
+                tvwVersion.text = Html.fromHtml(itemView.context.getString(R.string.latest_version, item.currentVersion, item.versionCount.toString()))
                 calendar.timeInMillis = item.timeStamp
                 tvwLastUpdated.text = Html.fromHtml(itemView.context.getString(R.string.last_updated, sdf.format(calendar.time)))
             }
