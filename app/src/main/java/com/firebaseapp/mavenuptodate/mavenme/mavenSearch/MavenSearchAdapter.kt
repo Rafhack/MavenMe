@@ -16,6 +16,10 @@ import java.util.*
 class MavenSearchAdapter(private val results: ArrayList<MavenSearchArtifact>, private val callback: ((MavenSearchArtifact) -> Unit)) :
         RecyclerView.Adapter<MavenSearchAdapter.ViewHolder>() {
 
+    @SuppressLint("SimpleDateFormat")
+    private val sdf = SimpleDateFormat("MMM dd, yyyy")
+    private val calendar = Calendar.getInstance()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.search_result_item, parent, false))
 
@@ -30,11 +34,8 @@ class MavenSearchAdapter(private val results: ArrayList<MavenSearchArtifact>, pr
         private val tvwVersion = itemView.findViewById<TextView>(R.id.tvwVersion)
         private val tvwLastUpdated = itemView.findViewById<TextView>(R.id.tvwLastUpdated)
 
-        @SuppressLint("SimpleDateFormat")
         fun bind(position: Int) {
             val item = results[position]
-            val sdf = SimpleDateFormat("MMM dd, yyyy")
-            val calendar = Calendar.getInstance()
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tvwArtifactName.text = Html.fromHtml(itemView.context.getString(R.string.name, item.id), Html.FROM_HTML_MODE_LEGACY)

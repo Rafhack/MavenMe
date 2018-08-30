@@ -28,7 +28,6 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
 
         setSupportActionBar(toolbar)
         supportActionBar?.setTitle(R.string.title_activity_maven_search)
-
         setupView()
         presenter.attach(this)
     }
