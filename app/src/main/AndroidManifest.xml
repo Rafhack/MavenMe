@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".myDependencies.MyDependenciesActivity"
-            android:label="@string/title_activity_my_dependencies"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".mavenSearch.MavenSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

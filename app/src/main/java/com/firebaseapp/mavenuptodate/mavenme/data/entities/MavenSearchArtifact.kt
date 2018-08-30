@@ -2,7 +2,7 @@ package com.firebaseapp.mavenuptodate.mavenme.data.entities
 
 import com.google.gson.annotations.SerializedName
 
-data class MavenSearchAtifact (
+data class MavenSearchArtifact (
         var id: String = "",
         @SerializedName("g")
         var group: String = "",

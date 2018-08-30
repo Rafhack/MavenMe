@@ -7,6 +7,7 @@ import com.firebaseapp.mavenuptodate.mavenme.R
 import com.firebaseapp.mavenuptodate.mavenme.base.BaseProgressActivity
 import com.firebaseapp.mavenuptodate.mavenme.data.domain.UserAuthInteractor
 import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
+import com.firebaseapp.mavenuptodate.mavenme.mavenSearch.MavenSearchActivity
 import kotlinx.android.synthetic.main.activity_base_progress.*
 import kotlinx.android.synthetic.main.activity_my_dependencies.*
 
@@ -17,14 +18,19 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_dependencies)
+
         setSupportActionBar(toolbar)
+        supportActionBar?.setTitle(R.string.title_activity_my_dependencies)
+        setupView()
+
         presenter.attach(this)
         presenter.authUser()
-        setupView()
     }
 
     private fun setupView() {
         signInButton.setOnClickListener { presenter.authUser() }
+
+        fab.setOnClickListener { startActivity(Intent(this, MavenSearchActivity::class.java)) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
