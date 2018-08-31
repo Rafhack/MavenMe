@@ -6,4 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".dependencyDetail.DependencyDetailActivity">
 
+    <TextView
+        android:id="@+id/tvwDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="A fast and efficient image loading library for Android focused on smooth scrolling." />
+
+    <!--suppress AndroidDomInspection -->
+    <TextView
+        android:id="@+id/tvwUrl"
+        style="?buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:autoLink="web"
+        android:drawablePadding="5dp"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvwDescription"
+        tools:text="https://github.com/bumptech/glide" />
+
+    <TextView
+        android:id="@+id/tvwVersion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvwUrl"
+        tools:text="Latest version: 4.08" />
+
+
+
 </android.support.constraint.ConstraintLayout>

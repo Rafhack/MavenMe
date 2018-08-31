@@ -19,6 +19,7 @@ class DependencyDetailPresenter : DependencyDetailContract.Presenter {
                     view.setProgress(false)
                     view.showDetails(it)
                 }, {
+                    view.showErrorMessage()
                     view.setProgress(false)
                 })
     }

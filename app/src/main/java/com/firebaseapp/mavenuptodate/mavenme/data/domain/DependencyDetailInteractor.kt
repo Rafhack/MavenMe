@@ -14,11 +14,9 @@ class DependencyDetailInteractor {
     fun loadDetails(dependency: Dependency): Single<Project> {
         val name = dependency.artifactId.split(":").last()
         val version = dependency.currentVersion
-        val path = dependency.artifactId
-                .split(".")
-                .joinToString("/")
-                .split(":")
-                .joinToString("/")
+        val path = dependency.group
+                .replace('.', '/')
+                .plus("/$name")
                 .plus("/$version")
                 .plus("/$name-$version.pom")
         return service.loadDetails(path)

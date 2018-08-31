@@ -1,5 +1,6 @@
 <!--suppress AndroidDomInspection -->
 <resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
@@ -7,6 +8,7 @@
         <item name="editTextBackground">@style/TextBackground</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="buttonStyle">@style/DrawableEnd</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
@@ -16,6 +18,7 @@
         <item name="editTextBackground">@style/TextBackground.Dark</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="buttonStyle">@style/DrawableEnd.Dark</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -28,6 +31,14 @@
 
     <style name="TextBackground">
         <item name="android:background">@drawable/shape_edit_text_background</item>
+    </style>
+
+    <style name="DrawableEnd">
+        <item name="android:drawableEnd">@drawable/ic_open_in_new_dark</item>
+    </style>
+
+    <style name="DrawableEnd.Dark">
+        <item name="android:drawableEnd">@drawable/ic_open_in_new_light</item>
     </style>
 
 

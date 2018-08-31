@@ -23,6 +23,7 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
 
     private val presenter = MavenSearchPresenter()
     private var timer: Timer? = null
+    private lateinit var imm: InputMethodManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +31,17 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
 
         setSupportActionBar(toolbar)
         supportActionBar?.setTitle(R.string.title_activity_maven_search)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         setupView()
         presenter.attach(this)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     private fun setupView() {
@@ -65,7 +75,6 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
         imbClearSearch.setOnClickListener {
             edtSearch.setText("")
             edtSearch.requestFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(edtSearch, InputMethodManager.SHOW_IMPLICIT)
             rcvSuggestions.visibility = GONE
         }
@@ -86,7 +95,6 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
             edtSearch.setText(it)
             edtSearch.setSelection(it.length)
             if (currentFocus != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(currentFocus.windowToken, 0)
             }
             if (timer != null) {

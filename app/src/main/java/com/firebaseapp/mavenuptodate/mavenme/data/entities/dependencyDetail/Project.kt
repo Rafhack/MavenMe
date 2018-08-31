@@ -18,5 +18,4 @@ data class Project @JvmOverloads constructor(
         @field:ElementList(name = "dependencies", required = false) var dependencies: ArrayList<ProjectDependency> = arrayListOf(),
         @field:ElementList(name = "licenses", required = false) var licenses: ArrayList<License> = arrayListOf(),
         @field:ElementList(name = "developers", required = false) var developers: ArrayList<Developer> = arrayListOf()
-
 )

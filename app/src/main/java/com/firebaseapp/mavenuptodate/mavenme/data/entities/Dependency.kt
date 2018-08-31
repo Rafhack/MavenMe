@@ -7,6 +7,8 @@ import org.parceler.Parcel
 open class Dependency {
     @SerializedName("id")
     var artifactId: String = ""
+    @SerializedName("g")
+    var group: String = ""
     var displayName: String = ""
     @SerializedName("latestVersion")
     var currentVersion: String = ""

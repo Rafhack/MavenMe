@@ -8,6 +8,7 @@ interface DependencyDetailContract {
 
     interface View : BaseContract.View {
         fun showDetails(project: Project)
+        fun showErrorMessage()
     }
 
     interface Presenter : BaseContract.Presenter<View> {

@@ -5,8 +5,6 @@ import org.parceler.Parcel
 
 @Parcel
 class MavenSearchArtifact : Dependency() {
-    @SerializedName("g")
-    var group: String = ""
     @SerializedName("a")
     var artifact: String = ""
     var repositoryId: String = ""
