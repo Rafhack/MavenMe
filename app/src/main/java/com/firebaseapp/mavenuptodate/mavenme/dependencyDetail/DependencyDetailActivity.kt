@@ -17,7 +17,9 @@ import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
 import com.firebaseapp.mavenuptodate.mavenme.data.entities.dependencyDetail.Project
 import kotlinx.android.synthetic.main.activity_base_progress.*
 import kotlinx.android.synthetic.main.activity_dependency_deatail.*
+import kotlinx.android.synthetic.main.dependencies_property_open.*
 import kotlinx.android.synthetic.main.developers_property_open.*
+import kotlinx.android.synthetic.main.licenses_property_open.*
 import org.parceler.Parcels
 
 class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContract.View {
@@ -61,6 +63,9 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
         cdvDevelopers.setOnClickListener(listener)
         cdvLicences.setOnClickListener(listener)
         cdvDependencies.setOnClickListener(listener)
+        tvwDescription.setOnClickListener {
+            tvwDescription.maxLines = if (tvwDescription.maxLines == -1) 5 else -1
+        }
     }
 
     private fun setupPOMDetails(project: Project) {
@@ -99,6 +104,8 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
             cdvDependencies.isEnabled = dependencies.isNotEmpty()
 
             rcvDevelopersList.adapter = DevelopersAdapter(project.developers)
+            rcvLicensesList.adapter = LicensesAdapter(project.licenses)
+            rcvDependenciesList.adapter = DependencyAdapter(project.dependencies)
         }
     }
 
@@ -127,6 +134,7 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
         cardView.getChildAt(0).visibility = GONE
         layoutParams.height = 0
         fab.visibility = VISIBLE
+        tvwDescription.maxLines = 5
         isPropertyOpen = true
     }
 
