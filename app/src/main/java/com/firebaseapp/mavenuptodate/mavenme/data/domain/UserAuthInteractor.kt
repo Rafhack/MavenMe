@@ -12,12 +12,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
+const val RC_SIGN_IN = 0x24
 
 class UserAuthInteractor {
-
-    companion object {
-        const val rcSignIn = 0x24
-    }
 
     private val tag = UserAuthInteractor::class.java.simpleName
     private val auth = FirebaseAuth.getInstance()
@@ -29,7 +26,7 @@ class UserAuthInteractor {
                 .requestEmail()
                 .build()
         val client = GoogleSignIn.getClient(activity, gso)
-        activity.startActivityForResult(client.signInIntent, rcSignIn)
+        activity.startActivityForResult(client.signInIntent, RC_SIGN_IN)
         return false
     }
 

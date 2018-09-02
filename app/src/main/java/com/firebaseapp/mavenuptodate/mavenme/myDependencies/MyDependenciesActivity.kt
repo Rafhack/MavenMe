@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View.GONE
 import com.firebaseapp.mavenuptodate.mavenme.R
 import com.firebaseapp.mavenuptodate.mavenme.base.BaseProgressActivity
-import com.firebaseapp.mavenuptodate.mavenme.data.domain.UserAuthInteractor
+import com.firebaseapp.mavenuptodate.mavenme.data.domain.RC_SIGN_IN
 import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
 import com.firebaseapp.mavenuptodate.mavenme.mavenSearch.MavenSearchActivity
 import kotlinx.android.synthetic.main.activity_base_progress.*
@@ -35,7 +35,7 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == UserAuthInteractor.rcSignIn) presenter.googleAuthResult(data)
+        if (requestCode == RC_SIGN_IN) presenter.googleAuthResult(data)
     }
 
     override fun setProgress(active: Boolean) {

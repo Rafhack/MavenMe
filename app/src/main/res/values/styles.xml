@@ -8,7 +8,9 @@
         <item name="editTextBackground">@style/TextBackground</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="buttonStyle">@style/DrawableEnd</item>
+        <item name="customDrawableStyle">@style/DrawableEnd</item>
+        <item name="customCloseButtonColor">@style/Close</item>
+        <item name="customAccountImageColor">@style/Account</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
@@ -18,7 +20,9 @@
         <item name="editTextBackground">@style/TextBackground.Dark</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="buttonStyle">@style/DrawableEnd.Dark</item>
+        <item name="customDrawableStyle">@style/DrawableEnd.Dark</item>
+        <item name="customCloseButtonColor">@style/Close.Dark</item>
+        <item name="customAccountImageColor">@style/Account.Dark</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -39,6 +43,22 @@
 
     <style name="DrawableEnd.Dark">
         <item name="android:drawableEnd">@drawable/ic_open_in_new_light</item>
+    </style>
+
+    <style name="Close">
+        <item name="android:src">@drawable/ic_close_dark</item>
+    </style>
+
+    <style name="Close.Dark">
+        <item name="android:src">@drawable/ic_close_light</item>
+    </style>
+
+    <style name="Account">
+        <item name="android:src">@drawable/ic_account_circle_dark</item>
+    </style>
+
+    <style name="Account.Dark">
+        <item name="android:src">@drawable/ic_account_circle_light</item>
     </style>
 
 
