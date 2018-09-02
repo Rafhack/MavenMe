@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <plurals name="developer">
+        <item quantity="one">Developer</item>
+        <item quantity="other">Developers</item>
+    </plurals>
+
+    <plurals name="license">
+        <item quantity="one">License</item>
+        <item quantity="other">Licenses</item>
+    </plurals>
+
+    <plurals name="dependency">
+        <item quantity="one">Dependency</item>
+        <item quantity="other">Dependencies</item>
+    </plurals>
+
+</resources>

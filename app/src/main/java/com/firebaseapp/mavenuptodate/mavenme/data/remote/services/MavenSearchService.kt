@@ -8,6 +8,9 @@ import retrofit2.http.Query
 interface MavenSearchService {
 
     @GET("solrsearch/select")
-    fun mavenSearch(@Query("q") search: String, @Query("wt") returnType: String = "json"): Single<JsonObject>
+    fun mavenSearch(
+            @Query("q") search: String,
+            @Query("wt") returnType: String = "json",
+            @Query("rows") rows: Int = 50): Single<JsonObject>
 
 }

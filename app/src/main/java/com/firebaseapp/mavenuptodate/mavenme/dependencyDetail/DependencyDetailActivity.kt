@@ -38,26 +38,41 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
     }
 
     private fun setupView(project: Project) {
-        if (project.description.isNotEmpty())
-            tvwDescription.text = project.description
-        else
-            tvwDescription.visibility = GONE
+        with(project) {
+            if (description.isNotEmpty())
+                tvwDescription.text = description
+            else
+                tvwDescription.visibility = GONE
 
-        if (project.url.isNotEmpty())
-            tvwUrl.text = project.url
-        else
-            tvwUrl.visibility = GONE
+            if (url.isNotEmpty())
+                tvwUrl.text = url
+            else
+                tvwUrl.visibility = GONE
 
-        var version = ""
-        if (project.version.isNotEmpty())
-            version = project.version
-        else if (project.parent != null)
-            version = project.parent?.version!!
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            tvwVersion.text = Html.fromHtml(getString(R.string.latest_version_detail, version), Html.FROM_HTML_MODE_LEGACY)
-        else
-            tvwVersion.text = Html.fromHtml(getString(R.string.latest_version_detail, version))
+            var versionString = ""
+            if (version.isNotEmpty())
+                versionString = version
+            else if (parent != null)
+                versionString = parent?.version!!
+            @Suppress("DEPRECATION")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                tvwVersion.text = Html.fromHtml(getString(R.string.latest_version_detail, versionString), Html.FROM_HTML_MODE_LEGACY)
+            else
+                tvwVersion.text = Html.fromHtml(getString(R.string.latest_version_detail, versionString))
+
+            tvwDevelopersCount.text = developers.size.toString()
+            tvwDevelopersTitle.text = resources.getQuantityText(R.plurals.developer, developers.size)
+            cdvDevelopers.isEnabled = developers.isNotEmpty()
+
+            tvwLicensesCount.text = licenses.size.toString()
+            tvwLicensesTitle.text = resources.getQuantityText(R.plurals.license, licenses.size)
+            cdvLicences.isEnabled = licenses.isNotEmpty()
+
+            tvwDependenciesCount.text = dependencies.size.toString()
+            tvwDependenciesTitle.text = resources.getQuantityText(R.plurals.dependency, dependencies.size)
+            cdvDependencies.isEnabled = dependencies.isNotEmpty()
+
+        }
     }
 
     override fun setProgress(active: Boolean) {

@@ -20,7 +20,7 @@ open class BaseProgressActivity : AppCompatActivity() {
 
     //region Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme_Dark)
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.activity_base_progress)
 
