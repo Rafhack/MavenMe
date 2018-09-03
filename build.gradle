@@ -28,6 +28,6 @@ task clean(type: Delete) {
 }
 
 ext {
-    retrofitVersion = '2.2.0'
-    okHTTPVersion = '3.7.0'
+    retrofitVersion = '2.4.0'
+    okHTTPVersion = '3.11.0'
 }

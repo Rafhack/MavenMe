@@ -9,10 +9,11 @@ open class Dependency {
     var artifactId: String = ""
     @SerializedName("g")
     var group: String = ""
-    var displayName: String = ""
+    @SerializedName("a")
+    var artifact: String = ""
     @SerializedName("latestVersion")
     var currentVersion: String = ""
-    var upToDate: Boolean = false
+    var upToDate: Boolean = true
     @SerializedName("timestamp")
     var timeStamp: Long = 0L
     var versionCount: Int = 0

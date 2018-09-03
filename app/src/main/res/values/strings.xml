@@ -12,6 +12,9 @@
     <string name="last_updated"><![CDATA[<b>Last updated:</b> %s]]></string>
     <string name="detail_error_message">There was an error while loading details. Please, try again in a moment</string>
     <string name="add_to_collections">Add to collection</string>
+    <string name="remove_from_collections">Remove from collection</string>
     <string name="add_error_message">There was a problem while adding this dependency to yout collections</string>
-    <string name="add_success_message">The collection has been added to your collection</string>
+    <string name="add_success_message">The dependency has been added to your collection</string>
+    <string name="remove_error_message">There was a problem while removing this dependency from yout collections</string>
+    <string name="remove_success_message">The dependency has been removed from your collection</string>
 </resources>

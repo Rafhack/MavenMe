@@ -1,5 +1,6 @@
 package com.firebaseapp.mavenuptodate.mavenme.data.domain
 
+import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
 import com.firebaseapp.mavenuptodate.mavenme.data.entities.MavenSearch
 import com.firebaseapp.mavenuptodate.mavenme.data.remote.ServiceGenerator
 import com.firebaseapp.mavenuptodate.mavenme.data.remote.services.MavenSearchService
@@ -19,5 +20,20 @@ class MavenSearchInteractor {
             result.suggestions.addAll(suggestions[1].asJsonObject["suggestion"].asJsonArray.map { it.asString })
             return@map result
         }
+    }
+
+    fun checkOutOfDate(dependencies: ArrayList<Dependency>): Single<Unit> {
+        val singles: ArrayList<Single<ArrayList<Dependency>>> = arrayListOf()
+        dependencies.forEach { dep ->
+            val search = "g:\"${dep.group}\" AND a:\"${dep.artifact}\""
+            singles.add(service.mavenSearch(search).map { json ->
+                val result = GsonBuilder().create().fromJson(json, MavenSearch::class.java)
+                result.response.docs.forEach { upToDate ->
+                    if (dep.currentVersion != upToDate.currentVersion) dep.upToDate = false
+                }
+                return@map result.response.docs
+            })
+        }
+        return Single.zip(singles) {}
     }
 }

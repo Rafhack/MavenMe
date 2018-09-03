@@ -5,13 +5,13 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.firebaseapp.mavenuptodate.mavenme.MavenMeApplication
 import com.firebaseapp.mavenuptodate.mavenme.R
+import com.firebaseapp.mavenuptodate.mavenme.data.remote.FirestoreGenerator
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 const val RC_SIGN_IN = 0x24
@@ -65,7 +65,7 @@ class UserAuthInteractor {
     }
 
     private fun addUser() {
-        val db = FirebaseFirestore.getInstance()
+        val db = FirestoreGenerator.getFirestore()
         val user = hashMapOf<String, Any>()
         user["loggedIn"] = System.currentTimeMillis()
         db.collection("users").document("${MavenMeApplication.user?.uid}").set(user)

@@ -40,6 +40,17 @@ class DependencyDetailPresenter : DependencyDetailContract.Presenter {
         }
     }
 
+    override fun removeFromCollections(dependency: Dependency) {
+        view.setProgress(true)
+        myDependenciesInteractor.removeFromCollections(dependency) { success ->
+            view.setProgress(false)
+            if (success)
+                view.showRemoveFromCollectionSuccessMessage()
+            else
+                view.showRemoveFromCollectionErrorMessage()
+        }
+    }
+
     override fun loadDetails(dependency: Dependency) {
         view.setProgress(true)
         detailInteractor.loadDetails(dependency)

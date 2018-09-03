@@ -5,4 +5,5 @@
     <color name="primaryDarkColor">#1b1b1b</color>
     <color name="darkGray">#424242</color>
     <color name="lightGray">#e0e0e0</color>
+    <color name="errorColor">#af0021</color>
 </resources>

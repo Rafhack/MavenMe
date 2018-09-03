@@ -29,12 +29,14 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
     private lateinit var dependency: Dependency
     private val presenter = DependencyDetailPresenter()
     private var isPropertyOpen = false
+    private var fromCollection = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dependency_deatail)
 
         dependency = Parcels.unwrap<Dependency>(intent.getParcelableExtra("dependency"))
+        fromCollection = intent.getBooleanExtra("fromCollection", false)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -50,6 +52,8 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+        if (fromCollection) menu?.removeItem(R.id.menu_item_add_to_collection)
+        else menu?.removeItem(R.id.menu_item_remove_from_collection)
         return true
     }
 
@@ -57,6 +61,7 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
 
         when (item?.itemId) {
             R.id.menu_item_add_to_collection -> presenter.addToCollection(dependency)
+            R.id.menu_item_remove_from_collection -> presenter.removeFromCollections(dependency)
         }
 
         return super.onOptionsItemSelected(item)
@@ -174,6 +179,18 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
     }
 
     override fun showAddToCollectionSuccessMessage() {
+        fromCollection = true
+        invalidateOptionsMenu()
         Toast.makeText(this, R.string.add_success_message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showRemoveFromCollectionErrorMessage() {
+        Toast.makeText(this, R.string.remove_error_message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showRemoveFromCollectionSuccessMessage() {
+        Toast.makeText(this, R.string.remove_success_message, Toast.LENGTH_LONG).show()
+        fromCollection = false
+        invalidateOptionsMenu()
     }
 }

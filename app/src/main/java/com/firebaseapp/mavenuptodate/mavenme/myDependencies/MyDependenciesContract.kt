@@ -7,10 +7,14 @@ import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
 interface MyDependenciesContract {
 
     interface View : BaseContract.View {
-        fun showDependencies(dependencies: ArrayList<Dependency>)
+        fun showDependencies()
+        fun showLoginButton()
+        fun setToolbarProgress(active: Boolean)
+        fun updateDependencyStatus()
     }
 
     interface Presenter : BaseContract.Presenter<View> {
+        fun checkDependenciesUptoDate()
         fun loadMyDependencies()
         fun authUser()
         fun googleAuthResult(data: Intent?)
