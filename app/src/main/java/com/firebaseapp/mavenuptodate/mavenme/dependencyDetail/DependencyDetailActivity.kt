@@ -18,7 +18,7 @@ import com.firebaseapp.mavenuptodate.mavenme.base.BaseProgressActivity
 import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
 import com.firebaseapp.mavenuptodate.mavenme.data.entities.dependencyDetail.Project
 import kotlinx.android.synthetic.main.activity_base_progress.*
-import kotlinx.android.synthetic.main.activity_dependency_deatail.*
+import kotlinx.android.synthetic.main.activity_dependency_detail.*
 import kotlinx.android.synthetic.main.dependencies_property_open.*
 import kotlinx.android.synthetic.main.developers_property_open.*
 import kotlinx.android.synthetic.main.licenses_property_open.*
@@ -33,7 +33,7 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dependency_deatail)
+        setContentView(R.layout.activity_dependency_detail)
 
         dependency = Parcels.unwrap<Dependency>(intent.getParcelableExtra("dependency"))
         fromCollection = intent.getBooleanExtra("fromCollection", false)
@@ -54,6 +54,7 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
         menuInflater.inflate(R.menu.menu, menu)
         if (fromCollection) menu?.removeItem(R.id.menu_item_add_to_collection)
         else menu?.removeItem(R.id.menu_item_remove_from_collection)
+        if (dependency.upToDate) menu?.removeItem(R.id.menu_item_update)
         return true
     }
 
@@ -62,6 +63,7 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
         when (item?.itemId) {
             R.id.menu_item_add_to_collection -> presenter.addToCollection(dependency)
             R.id.menu_item_remove_from_collection -> presenter.removeFromCollections(dependency)
+            R.id.menu_item_update -> presenter.updateDependency(dependency)
         }
 
         return super.onOptionsItemSelected(item)
@@ -192,5 +194,13 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
         Toast.makeText(this, R.string.remove_success_message, Toast.LENGTH_LONG).show()
         fromCollection = false
         invalidateOptionsMenu()
+    }
+
+    override fun showUpdateSuccess() {
+        Toast.makeText(this, R.string.update_success_message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showUpdateError() {
+        Toast.makeText(this, R.string.update_error_message, Toast.LENGTH_LONG).show()
     }
 }

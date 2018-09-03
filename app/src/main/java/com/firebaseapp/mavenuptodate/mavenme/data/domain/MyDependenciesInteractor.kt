@@ -16,6 +16,12 @@ class MyDependenciesInteractor {
                 .addOnCompleteListener { callback.invoke(it.isSuccessful) }
     }
 
+    fun addMultipleToCollection(dependencies: ArrayList<Dependency>) {
+        dependencies.forEach { dep ->
+            db.document("users/${MavenMeApplication.user?.uid}/dependencies/${dep.artifactId}").set(dep)
+        }
+    }
+
     fun removeFromCollections(dependency: Dependency, callback: ((Boolean) -> Unit)) {
         db.document("users/${MavenMeApplication.user?.uid}/dependencies/${dependency.artifactId}")
                 .delete()
@@ -23,10 +29,10 @@ class MyDependenciesInteractor {
     }
 
     fun loadCollection(callback: (ArrayList<Dependency>) -> Unit) {
-        db.collection("users/${MavenMeApplication.user?.uid}/dependencies")
-                .addSnapshotListener { result, _ ->
+        db.collection("users/${MavenMeApplication.user?.uid}/dependencies").get()
+                .addOnCompleteListener {
                     val myDependencies = arrayListOf<Dependency>()
-                    result?.forEach { doc ->
+                    it.result.forEach { doc ->
                         myDependencies.add(doc.toObject(Dependency::class.java))
                     }
                     callback.invoke(myDependencies)

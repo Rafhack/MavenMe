@@ -27,6 +27,10 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
         setupView()
 
         presenter.attach(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
         presenter.authUser()
     }
 
@@ -34,6 +38,8 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
         signInButton.setOnClickListener { presenter.authUser() }
 
         fab.setOnClickListener { startActivity(Intent(this, MavenSearchActivity::class.java)) }
+
+        srlUpdateMyDependencies.setOnRefreshListener { presenter.authUser() }
     }
 
     override fun setToolbarProgress(active: Boolean) {
@@ -60,6 +66,7 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
     override fun showDependencies() {
         rcvDependencies.background = null
         signInButton.visibility = GONE
+        if (srlUpdateMyDependencies.isRefreshing) srlUpdateMyDependencies.isRefreshing = false
         if (presenter.myDependencies.isEmpty()) {
             tvwLoginToLoad.visibility = VISIBLE
             tvwLoginToLoad.setText(R.string.you_dont_have_dependencies)

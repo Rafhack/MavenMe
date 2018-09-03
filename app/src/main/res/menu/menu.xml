@@ -9,4 +9,9 @@
         android:id="@+id/menu_item_remove_from_collection"
         android:icon="@drawable/ic_add"
         android:title="@string/remove_from_collections" />
+
+    <item
+        android:id="@+id/menu_item_update"
+        android:icon="@drawable/ic_add"
+        android:title="@string/update" />
 </menu>

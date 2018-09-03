@@ -22,18 +22,35 @@ class MavenSearchInteractor {
         }
     }
 
-    fun checkOutOfDate(dependencies: ArrayList<Dependency>): Single<Unit> {
+    fun getLatestVersion(dependency: Dependency): Single<Dependency> {
+        val search = "g:\"${dependency.group}\" AND a:\"${dependency.artifact}\""
+        return service.mavenSearch(search).map { json ->
+            val result = GsonBuilder().create().fromJson(json, MavenSearch::class.java)
+            return@map result.response.docs[0]
+        }
+    }
+
+    fun checkOutOfDate(dependencies: ArrayList<Dependency>): Single<ArrayList<Dependency>> {
         val singles: ArrayList<Single<ArrayList<Dependency>>> = arrayListOf()
         dependencies.forEach { dep ->
             val search = "g:\"${dep.group}\" AND a:\"${dep.artifact}\""
             singles.add(service.mavenSearch(search).map { json ->
                 val result = GsonBuilder().create().fromJson(json, MavenSearch::class.java)
+                val outOfDate = arrayListOf<Dependency>()
                 result.response.docs.forEach { upToDate ->
-                    if (dep.currentVersion != upToDate.currentVersion) dep.upToDate = false
+                    if (dep.currentVersion != upToDate.currentVersion) {
+                        dep.upToDate = false
+                        outOfDate.add(dep)
+                    }
                 }
-                return@map result.response.docs
+                return@map outOfDate
             })
         }
-        return Single.zip(singles) {}
+        return Single.zip(singles) {
+            val result = arrayListOf<Dependency>()
+            @Suppress("UNCHECKED_CAST")
+            it.forEach { array -> result.addAll(array as ArrayList<Dependency>) }
+            return@zip result
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.firebaseapp.mavenuptodate.mavenme.dependencyDetail
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import com.firebaseapp.mavenuptodate.mavenme.data.domain.DependencyDetailInteractor
+import com.firebaseapp.mavenuptodate.mavenme.data.domain.MavenSearchInteractor
 import com.firebaseapp.mavenuptodate.mavenme.data.domain.MyDependenciesInteractor
 import com.firebaseapp.mavenuptodate.mavenme.data.domain.UserAuthInteractor
 import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
@@ -15,6 +16,7 @@ class DependencyDetailPresenter : DependencyDetailContract.Presenter {
     private val detailInteractor = DependencyDetailInteractor()
     private val userAuthInteractor = UserAuthInteractor()
     private val myDependenciesInteractor = MyDependenciesInteractor()
+    private val searchInteractor = MavenSearchInteractor()
     private var pendingDependency: Dependency? = null
 
     override fun addToCollection(dependency: Dependency) {
@@ -38,6 +40,27 @@ class DependencyDetailPresenter : DependencyDetailContract.Presenter {
             if (success && pendingDependency != null) addToCollection(pendingDependency!!)
             else view.setProgress(false)
         }
+    }
+
+    override fun updateDependency(dependency: Dependency) {
+        view.setProgress(true)
+        searchInteractor.getLatestVersion(dependency)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    myDependenciesInteractor.addToCollection(it) { success ->
+                        if (success) {
+                            view.showUpdateSuccess()
+                            loadDetails(it)
+                        } else {
+                            view.setProgress(false)
+                            view.showUpdateError()
+                        }
+                    }
+                }, {
+                    view.showUpdateError()
+                    view.setProgress(false)
+                })
     }
 
     override fun removeFromCollections(dependency: Dependency) {

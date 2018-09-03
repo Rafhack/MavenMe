@@ -27,12 +27,22 @@ class MyDependenciesPresenter : MyDependenciesContract.Presenter {
         }
     }
 
+    private fun updateDBStatus(dependencies: ArrayList<Dependency>) {
+        myDependenciesInteractor.addMultipleToCollection(dependencies)
+    }
+
     override fun checkDependenciesUptoDate() {
         view.setToolbarProgress(true)
-        searchInteractor.checkOutOfDate(myDependencies)
+        searchInteractor.checkOutOfDate(myDependencies.filter { it.upToDate } as ArrayList<Dependency>)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    updateDBStatus(it)
+                    it.forEach { outOfDate ->
+                        myDependencies.find { my ->
+                            outOfDate.artifactId == my.artifactId
+                        }?.upToDate = false
+                    }
                     view.updateDependencyStatus()
                     view.setToolbarProgress(false)
                 }, {

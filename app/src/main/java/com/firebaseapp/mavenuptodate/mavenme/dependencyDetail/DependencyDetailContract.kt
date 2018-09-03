@@ -14,6 +14,8 @@ interface DependencyDetailContract {
         fun showAddToCollectionSuccessMessage()
         fun showRemoveFromCollectionErrorMessage()
         fun showRemoveFromCollectionSuccessMessage()
+        fun showUpdateSuccess()
+        fun showUpdateError()
     }
 
     interface Presenter : BaseContract.Presenter<View> {
@@ -21,6 +23,7 @@ interface DependencyDetailContract {
         fun addToCollection(dependency: Dependency)
         fun googleAuthResult(data: Intent?)
         fun removeFromCollections(dependency: Dependency)
+        fun updateDependency(dependency: Dependency)
     }
 
 }
