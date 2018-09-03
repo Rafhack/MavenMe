@@ -20,4 +20,8 @@
     <string name="update">Update</string>
     <string name="update_error_message">There was a problem while updating this dependency</string>
     <string name="update_success_message">The dependency has been updated on your collection</string>
+    <string name="settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="notification_interval">Notification interval (soon)</string>
 </resources>

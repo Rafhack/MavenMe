@@ -51,7 +51,7 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
+        menuInflater.inflate(R.menu.details_menu, menu)
         if (fromCollection) menu?.removeItem(R.id.menu_item_add_to_collection)
         else menu?.removeItem(R.id.menu_item_remove_from_collection)
         if (dependency.upToDate) menu?.removeItem(R.id.menu_item_update)

@@ -2,6 +2,8 @@ package com.firebaseapp.mavenuptodate.mavenme.myDependencies
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.firebaseapp.mavenuptodate.mavenme.R
@@ -10,6 +12,9 @@ import com.firebaseapp.mavenuptodate.mavenme.data.domain.RC_SIGN_IN
 import com.firebaseapp.mavenuptodate.mavenme.dependencyDetail.DependencyDetailActivity
 import com.firebaseapp.mavenuptodate.mavenme.mavenSearch.MavenSearchActivity
 import com.firebaseapp.mavenuptodate.mavenme.mavenSearch.MavenSearchAdapter
+import com.firebaseapp.mavenuptodate.mavenme.settings.CONTENT_CHANGED
+import com.firebaseapp.mavenuptodate.mavenme.settings.RC_SETTINGS
+import com.firebaseapp.mavenuptodate.mavenme.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_base_progress.*
 import kotlinx.android.synthetic.main.activity_my_dependencies.*
 import org.parceler.Parcels
@@ -27,11 +32,29 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
         setupView()
 
         presenter.attach(this)
+        presenter.authUser()
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.authUser()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.my_dependencies_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.my_dependencies_menu_settings -> {
+                startActivityForResult(Intent(this, SettingsActivity::class.java), RC_SETTINGS)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            RC_SIGN_IN -> presenter.googleAuthResult(data)
+            RC_SETTINGS -> if (data?.getBooleanExtra(CONTENT_CHANGED, false)!!) recreate()
+        }
     }
 
     private fun setupView() {
@@ -51,12 +74,8 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
     }
 
     override fun showLoginButton() {
+        tvwLoginToLoad.visibility = VISIBLE
         signInButton.visibility = VISIBLE
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) presenter.googleAuthResult(data)
     }
 
     override fun setProgress(active: Boolean) {
@@ -68,7 +87,6 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
         signInButton.visibility = GONE
         if (srlUpdateMyDependencies.isRefreshing) srlUpdateMyDependencies.isRefreshing = false
         if (presenter.myDependencies.isEmpty()) {
-            tvwLoginToLoad.visibility = VISIBLE
             tvwLoginToLoad.setText(R.string.you_dont_have_dependencies)
         } else {
             presenter.checkDependenciesUptoDate()
