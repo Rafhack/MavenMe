@@ -1,13 +1,13 @@
 package com.firebaseapp.mavenuptodate.mavenme.mavenSearch
 
 import com.firebaseapp.mavenuptodate.mavenme.data.domain.MavenSearchInteractor
-import com.firebaseapp.mavenuptodate.mavenme.data.entities.MavenSearchArtifact
+import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MavenSearchPresenter : MavenSearchContract.Presenter {
 
-    val searchResults: ArrayList<MavenSearchArtifact> = arrayListOf()
+    val searchResults: ArrayList<Dependency> = arrayListOf()
     private lateinit var view: MavenSearchContract.View
     private val searchInteractor = MavenSearchInteractor()
 

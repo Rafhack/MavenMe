@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.firebaseapp.mavenuptodate.mavenme.R
-import com.firebaseapp.mavenuptodate.mavenme.data.entities.MavenSearchArtifact
+import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MavenSearchAdapter(private val results: ArrayList<MavenSearchArtifact>, private val callback: ((MavenSearchArtifact) -> Unit)) :
+class MavenSearchAdapter(private val results: ArrayList<Dependency>, private val callback: ((Dependency) -> Unit)) :
         RecyclerView.Adapter<MavenSearchAdapter.ViewHolder>() {
 
     @SuppressLint("SimpleDateFormat")

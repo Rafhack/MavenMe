@@ -13,4 +13,7 @@ open class Dependency {
     @SerializedName("latestVersion")
     var currentVersion: String = ""
     var upToDate: Boolean = false
+    @SerializedName("timestamp")
+    var timeStamp: Long = 0L
+    var versionCount: Int = 0
 }

@@ -11,4 +11,7 @@
     <string name="latest_version_detail"><![CDATA[<b>Latest version:</b> %s]]></string>
     <string name="last_updated"><![CDATA[<b>Last updated:</b> %s]]></string>
     <string name="detail_error_message">There was an error while loading details. Please, try again in a moment</string>
+    <string name="add_to_collections">Add to collection</string>
+    <string name="add_error_message">There was a problem while adding this dependency to yout collections</string>
+    <string name="add_success_message">The collection has been added to your collection</string>
 </resources>

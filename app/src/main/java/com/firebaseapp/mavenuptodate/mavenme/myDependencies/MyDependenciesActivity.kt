@@ -7,9 +7,12 @@ import com.firebaseapp.mavenuptodate.mavenme.R
 import com.firebaseapp.mavenuptodate.mavenme.base.BaseProgressActivity
 import com.firebaseapp.mavenuptodate.mavenme.data.domain.RC_SIGN_IN
 import com.firebaseapp.mavenuptodate.mavenme.data.entities.Dependency
+import com.firebaseapp.mavenuptodate.mavenme.dependencyDetail.DependencyDetailActivity
 import com.firebaseapp.mavenuptodate.mavenme.mavenSearch.MavenSearchActivity
+import com.firebaseapp.mavenuptodate.mavenme.mavenSearch.MavenSearchAdapter
 import kotlinx.android.synthetic.main.activity_base_progress.*
 import kotlinx.android.synthetic.main.activity_my_dependencies.*
+import org.parceler.Parcels
 
 class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.View {
 
@@ -24,6 +27,10 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
         setupView()
 
         presenter.attach(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
         presenter.authUser()
     }
 
@@ -47,8 +54,14 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
         signInButton.visibility = GONE
         if (dependencies.isEmpty())
             tvwLoginToLoad.setText(R.string.you_dont_have_dependencies)
-        else
+        else {
             tvwLoginToLoad.visibility = GONE
+            rcvDependencies.adapter = MavenSearchAdapter(dependencies) {
+                val intent = Intent(this, DependencyDetailActivity::class.java)
+                intent.putExtra("dependency", Parcels.wrap(it))
+                startActivity(intent)
+            }
+        }
     }
 
 }

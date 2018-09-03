@@ -11,6 +11,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 const val RC_SIGN_IN = 0x24
 
@@ -20,7 +22,10 @@ class UserAuthInteractor {
     private val auth = FirebaseAuth.getInstance()
 
     fun authUser(activity: AppCompatActivity): Boolean {
-        if (auth.currentUser != null) return true
+        if (auth.currentUser != null) {
+            MavenMeApplication.user = auth.currentUser
+            return true
+        }
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(activity.getString(R.string.web_client_id))
                 .requestEmail()
@@ -50,12 +55,20 @@ class UserAuthInteractor {
                         Log.d(tag, "signInWithCredential:success")
                         val user = auth.currentUser
                         MavenMeApplication.user = user
+                        addUser()
                         callBack.invoke(true)
                     } else {
                         Log.w(tag, "signInWithCredential:failure", task.exception)
                         callBack.invoke(false)
                     }
                 }
+    }
+
+    private fun addUser() {
+        val db = FirebaseFirestore.getInstance()
+        val user = hashMapOf<String, Any>()
+        user["loggedIn"] = System.currentTimeMillis()
+        db.collection("users").document("${MavenMeApplication.user?.uid}").set(user)
     }
 
 }

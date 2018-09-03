@@ -6,6 +6,8 @@ import android.support.constraint.ConstraintLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.widget.CardView
 import android.text.Html
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -24,6 +26,7 @@ import org.parceler.Parcels
 
 class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContract.View {
 
+    private lateinit var dependency: Dependency
     private val presenter = DependencyDetailPresenter()
     private var isPropertyOpen = false
 
@@ -31,7 +34,7 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dependency_deatail)
 
-        val dependency = Parcels.unwrap<Dependency>(intent.getParcelableExtra("dependency"))
+        dependency = Parcels.unwrap<Dependency>(intent.getParcelableExtra("dependency"))
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -43,6 +46,20 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
     override fun onSupportNavigateUp(): Boolean {
         super.onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when (item?.itemId) {
+            R.id.menu_item_add_to_collection -> presenter.addToCollection(dependency)
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
@@ -150,5 +167,13 @@ class DependencyDetailActivity : BaseProgressActivity(), DependencyDetailContrac
     override fun showErrorMessage() {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_LONG).show()
         finish()
+    }
+
+    override fun showAddToCollectionErrorMessage() {
+        Toast.makeText(this, R.string.add_error_message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showAddToCollectionSuccessMessage() {
+        Toast.makeText(this, R.string.add_success_message, Toast.LENGTH_LONG).show()
     }
 }
