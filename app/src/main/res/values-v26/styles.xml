@@ -11,7 +11,7 @@
         <item name="customDrawableStyle">@style/DrawableEnd</item>
         <item name="customCloseButtonColor">@style/Close</item>
         <item name="customAccountImageColor">@style/Account</item>
-        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowSplashscreenContent">@drawable/splash_screen</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
@@ -24,7 +24,7 @@
         <item name="customDrawableStyle">@style/DrawableEnd.Dark</item>
         <item name="customCloseButtonColor">@style/Close.Dark</item>
         <item name="customAccountImageColor">@style/Account.Dark</item>
-        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowSplashscreenContent">@drawable/splash_screen</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
