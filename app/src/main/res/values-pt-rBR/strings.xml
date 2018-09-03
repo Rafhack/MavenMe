@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MavenMe</string>
+    <string name="title_activity_my_dependencies">Minhas dependências</string>
+    <string name="title_activity_maven_search">Pesquisar dependências</string>
+    <string name="sign_in_to_view_dependencies">Para carregar dependências pessoais, por favor entre em uma conta Google</string>
+    <string name="you_dont_have_dependencies">Você não tem dependências ainda!</string>
+    <string name="search_dependency_name">Pesquisar em Central Repository</string>
+    <string name="name"><![CDATA[<b>Nome:</b> %s]]></string>
+    <string name="group"><![CDATA[<b>Grupo:</b> %s]]></string>
+    <string name="latest_version"><![CDATA[<b>Versão:</b> %s (%s)]]></string>
+    <string name="latest_version_detail"><![CDATA[<b>Versão:</b> %s]]></string>
+    <string name="last_updated"><![CDATA[<b>Atualizado em:</b> %s]]></string>
+    <string name="detail_error_message">Houve um erro ao carregar os detalhes. Por favor, tente novamente em alguns instantes</string>
+    <string name="add_to_collections">Adicionar a coleção</string>
+    <string name="remove_from_collections">Remover da coleção</string>
+    <string name="add_error_message">Houve um erro ao adicionar essa dependência a sua coleção</string>
+    <string name="add_success_message">A dependência foi adicionada a sua coleção</string>
+    <string name="remove_error_message">Houve um erro ao remover esta dependência de sua coleção</string>
+    <string name="remove_success_message">A dependência foi removida de sua coleção</string>
+    <string name="update">Atualizar</string>
+    <string name="update_error_message">Houve um erro ao atualizar a dependência</string>
+    <string name="update_success_message">A dependência foi atualizada</string>
+    <string name="settings">Configurações</string>
+    <string name="title_activity_settings">Configurações</string>
+    <string name="dark_theme">Tema escuro</string>
+    <string name="notification_interval">Intervalo de notificação (em breve)</string>
+</resources>
