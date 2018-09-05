@@ -63,5 +63,13 @@
         <item name="android:src">@drawable/ic_account_circle_light</item>
     </style>
 
+    <style name="SolidBackground">
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="SolidBackground.Dark">
+        <item name="android:background">#303030</item>
+    </style>
+
 
 </resources>

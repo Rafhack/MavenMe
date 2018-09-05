@@ -11,6 +11,7 @@
         <item name="customDrawableStyle">@style/DrawableEnd</item>
         <item name="customCloseButtonColor">@style/Close</item>
         <item name="customAccountImageColor">@style/Account</item>
+        <item name="customBackground">@style/SolidBackground</item>
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
@@ -24,6 +25,7 @@
         <item name="customDrawableStyle">@style/DrawableEnd.Dark</item>
         <item name="customCloseButtonColor">@style/Close.Dark</item>
         <item name="customAccountImageColor">@style/Account.Dark</item>
+        <item name="customBackground">@style/SolidBackground.Dark</item>
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
@@ -63,5 +65,12 @@
         <item name="android:src">@drawable/ic_account_circle_light</item>
     </style>
 
+    <style name="SolidBackground">
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="SolidBackground.Dark">
+        <item name="android:background">#303030</item>
+    </style>
 
 </resources>

@@ -24,6 +24,8 @@
             android:id="@+id/rcvDependencies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:background="@drawable/shape_no_google_account_place_holder"
             android:clipToPadding="false"
             android:paddingBottom="50dp"

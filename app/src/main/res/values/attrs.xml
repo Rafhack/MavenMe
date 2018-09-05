@@ -4,5 +4,6 @@
         <attr name="customDrawableStyle" format="reference"/>
         <attr name="customCloseButtonColor" format="reference"/>
         <attr name="customAccountImageColor" format="reference"/>
+        <attr name="customBackground" format="reference"/>
     </declare-styleable>
 </resources>
