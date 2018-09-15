@@ -44,9 +44,7 @@ class SettingsActivity : BaseProgressActivity(), SettingsContract.View {
     }
 
     override fun onBackPressed() {
-        val intent = Intent()
-        intent.putExtra(CONTENT_CHANGED, changed)
-        setResult(RESULT_OK, intent)
+        setResult(RESULT_OK, Intent().apply { putExtra(CONTENT_CHANGED, changed) })
         finish()
     }
 

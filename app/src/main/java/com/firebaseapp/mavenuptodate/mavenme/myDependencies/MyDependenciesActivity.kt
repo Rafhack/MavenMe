@@ -92,10 +92,10 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
             presenter.checkDependenciesUptoDate()
             tvwLoginToLoad.visibility = GONE
             rcvDependencies.adapter = MavenSearchAdapter(presenter.myDependencies) {
-                val intent = Intent(this, DependencyDetailActivity::class.java)
-                intent.putExtra("dependency", Parcels.wrap(it))
-                intent.putExtra("fromCollection", true)
-                startActivity(intent)
+                startActivity(Intent(this, DependencyDetailActivity::class.java).apply {
+                    putExtra("dependency", Parcels.wrap(it))
+                    putExtra("fromCollection", true)
+                })
             }
         }
     }

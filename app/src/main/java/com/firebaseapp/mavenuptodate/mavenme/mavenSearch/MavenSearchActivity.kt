@@ -47,9 +47,9 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
     private fun setupView() {
         fab.visibility = GONE
         rcvSearchResults.adapter = MavenSearchAdapter(presenter.searchResults) {
-            val intent = Intent(this, DependencyDetailActivity::class.java)
-            intent.putExtra("dependency", Parcels.wrap(it))
-            startActivity(intent)
+            startActivity(Intent(this, DependencyDetailActivity::class.java).apply {
+                putExtra("dependency", Parcels.wrap(it))
+            })
         }
 
         edtSearch.requestFocus()

@@ -62,7 +62,7 @@ class MavenSearchAdapter(private val results: ArrayList<Dependency>, private val
             ctlItemRoot.setBackgroundColor(if (item.upToDate) 0 else ResourcesCompat.getColor(itemView.resources,
                     R.color.errorColor, null))
 
-            itemView.setOnClickListener { callback.invoke(item) }
+            itemView.setOnClickListener { callback(item) }
         }
     }
 

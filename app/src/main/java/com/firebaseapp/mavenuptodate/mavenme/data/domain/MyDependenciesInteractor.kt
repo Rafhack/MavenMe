@@ -13,7 +13,7 @@ class MyDependenciesInteractor {
     fun addToCollection(dependency: Dependency, callback: ((Boolean) -> Unit)) {
         db.document("users/${MavenMeApplication.user?.uid}/dependencies/${dependency.artifactId}")
                 .set(dependency)
-                .addOnCompleteListener { callback.invoke(it.isSuccessful) }
+                .addOnCompleteListener { callback(it.isSuccessful) }
     }
 
     fun addMultipleToCollection(dependencies: ArrayList<Dependency>) {
@@ -25,7 +25,7 @@ class MyDependenciesInteractor {
     fun removeFromCollections(dependency: Dependency, callback: ((Boolean) -> Unit)) {
         db.document("users/${MavenMeApplication.user?.uid}/dependencies/${dependency.artifactId}")
                 .delete()
-                .addOnCompleteListener { callback.invoke(it.isSuccessful) }
+                .addOnCompleteListener { callback(it.isSuccessful) }
     }
 
     fun loadCollection(callback: (ArrayList<Dependency>) -> Unit) {
@@ -35,7 +35,19 @@ class MyDependenciesInteractor {
                     it.result.forEach { doc ->
                         myDependencies.add(doc.toObject(Dependency::class.java))
                     }
-                    callback.invoke(myDependencies)
+                    callback(myDependencies)
+                }
+    }
+
+    fun loadUpToDateOnly(callback: (ArrayList<Dependency>) -> Unit) {
+        db.collection("users/${MavenMeApplication.user?.uid}/dependencies")
+                .whereEqualTo("upToDate", true).get()
+                .addOnCompleteListener {
+                    val myDependencies = arrayListOf<Dependency>()
+                    it.result.forEach { doc ->
+                        myDependencies.add(doc.toObject(Dependency::class.java))
+                    }
+                    callback(myDependencies)
                 }
     }
 

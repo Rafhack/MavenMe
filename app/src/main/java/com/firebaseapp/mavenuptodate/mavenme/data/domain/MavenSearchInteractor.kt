@@ -18,7 +18,7 @@ class MavenSearchInteractor {
             val suggestions = json["spellcheck"].asJsonObject["suggestions"].asJsonArray
             if (suggestions.size() < 1) return@map result
             result.suggestions.addAll(suggestions[1].asJsonObject["suggestion"].asJsonArray.map { it.asString })
-            return@map result
+            result
         }
     }
 
@@ -26,7 +26,7 @@ class MavenSearchInteractor {
         val search = "g:\"${dependency.group}\" AND a:\"${dependency.artifact}\""
         return service.mavenSearch(search).map { json ->
             val result = GsonBuilder().create().fromJson(json, MavenSearch::class.java)
-            return@map result.response.docs[0]
+            result.response.docs[0]
         }
     }
 
@@ -43,14 +43,14 @@ class MavenSearchInteractor {
                         outOfDate.add(dep)
                     }
                 }
-                return@map outOfDate
+                outOfDate
             })
         }
         return Single.zip(singles) {
             val result = arrayListOf<Dependency>()
             @Suppress("UNCHECKED_CAST")
             it.forEach { array -> result.addAll(array as ArrayList<Dependency>) }
-            return@zip result
+            result
         }
     }
 }

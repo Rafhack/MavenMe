@@ -42,7 +42,7 @@ class UserAuthInteractor {
             firebaseAuthWithGoogle(activity, account, callBack)
         } catch (e: ApiException) {
             Log.w(tag, "Google sign in failed", e)
-            callBack.invoke(false)
+            callBack(false)
         }
     }
 
@@ -56,10 +56,10 @@ class UserAuthInteractor {
                         val user = auth.currentUser
                         MavenMeApplication.user = user
                         addUser()
-                        callBack.invoke(true)
+                        callBack(true)
                     } else {
                         Log.w(tag, "signInWithCredential:failure", task.exception)
-                        callBack.invoke(false)
+                        callBack(false)
                     }
                 }
     }

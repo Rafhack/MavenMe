@@ -26,7 +26,7 @@ class MavenSuggestionAdapter(private val suggestions: ArrayList<String>, private
         @SuppressLint("SimpleDateFormat")
         fun bind(position: Int) {
             tvwArtifactName.text = suggestions[position]
-            itemView.setOnClickListener { callback.invoke(suggestions[position]) }
+            itemView.setOnClickListener { callback(suggestions[position]) }
         }
     }
 
