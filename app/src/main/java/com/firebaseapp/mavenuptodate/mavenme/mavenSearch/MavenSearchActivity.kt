@@ -86,7 +86,7 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
 
     override fun showSearchResult() {
         rcvSuggestions.visibility = GONE
-        rcvSearchResults.adapter.notifyDataSetChanged()
+        rcvSearchResults.adapter?.notifyDataSetChanged()
     }
 
     override fun showSuggestions(suggestions: ArrayList<String>) {
@@ -95,7 +95,7 @@ class MavenSearchActivity : BaseProgressActivity(), MavenSearchContract.View {
             edtSearch.setText(it)
             edtSearch.setSelection(it.length)
             if (currentFocus != null) {
-                imm.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+                imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
             }
             if (timer != null) {
                 timer?.cancel()

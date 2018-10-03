@@ -70,7 +70,7 @@ class MyDependenciesActivity : BaseProgressActivity(), MyDependenciesContract.Vi
     }
 
     override fun updateDependencyStatus() {
-        rcvDependencies.adapter.notifyDataSetChanged()
+        rcvDependencies.adapter?.notifyDataSetChanged()
     }
 
     override fun showLoginButton() {

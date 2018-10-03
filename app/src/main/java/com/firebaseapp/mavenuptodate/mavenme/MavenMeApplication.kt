@@ -1,17 +1,19 @@
 package com.firebaseapp.mavenuptodate.mavenme
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
-import com.firebase.jobdispatcher.Constraint
-import com.firebase.jobdispatcher.FirebaseJobDispatcher
-import com.firebase.jobdispatcher.GooglePlayDriver
-import com.firebase.jobdispatcher.Lifetime.FOREVER
-import com.firebase.jobdispatcher.RetryStrategy.DEFAULT_LINEAR
-import com.firebase.jobdispatcher.Trigger
-import com.firebaseapp.mavenuptodate.mavenme.notificationService.NotificationService
+import com.evernote.android.job.JobManager
+import com.evernote.android.job.JobRequest
+import com.firebaseapp.mavenuptodate.mavenme.notificationService.NotificationServiceCreator
 import com.firebaseapp.mavenuptodate.mavenme.notificationService.TAG
+import com.firebaseapp.mavenuptodate.mavenme.settings.OPT_CHECK_EVERY_24_HOUR
+import com.firebaseapp.mavenuptodate.mavenme.settings.OPT_CHECK_EVERY_HOUR
+import com.firebaseapp.mavenuptodate.mavenme.settings.PREF_CHECK_INTERVAL
 import com.google.firebase.auth.FirebaseUser
+import java.util.concurrent.TimeUnit.DAYS
 import java.util.concurrent.TimeUnit.MINUTES
+
 
 class MavenMeApplication : Application() {
 
@@ -23,27 +25,29 @@ class MavenMeApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         application = this
+        JobManager.create(this).addJobCreator(NotificationServiceCreator())
         scheduleJob()
     }
 
     fun scheduleJob() {
-        val dispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))
+        val sp = getSharedPreferences("mavenme", Context.MODE_PRIVATE)
+        val exWindowStart = when (sp.getInt(PREF_CHECK_INTERVAL, 0)) {
+            OPT_CHECK_EVERY_HOUR -> MINUTES.toMillis(60)
+            OPT_CHECK_EVERY_24_HOUR -> DAYS.toMillis(1)
+            else -> 0
+        }
+        val exWindowEnd = MINUTES.toMillis(5)
 
-        val exWindowStart = MINUTES.toSeconds(50).toInt()
-        val exWindowEnd = exWindowStart + MINUTES.toSeconds(10).toInt()
+        if (exWindowStart == 0L) return
 
-        val job = dispatcher.newJobBuilder()
-                .setService(NotificationService::class.java)
-                .setTag(TAG)
-                .setLifetime(FOREVER)
-                .setReplaceCurrent(true)
-                .setRecurring(true)
-                .setTrigger(Trigger.executionWindow(exWindowStart, exWindowEnd))
-                .setRetryStrategy(DEFAULT_LINEAR)
+        JobRequest.Builder(TAG)
+                .setPeriodic(exWindowStart, exWindowEnd)
+                .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
+                .setRequirementsEnforced(true)
+                .setUpdateCurrent(true)
                 .build()
-
-        dispatcher.mustSchedule(job)
-        Log.d(TAG, "Job scheduled!")
+                .schedule()
+        Log.d(TAG, "EvernoteJob scheduled!")
     }
 
 }

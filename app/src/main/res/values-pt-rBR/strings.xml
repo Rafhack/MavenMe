@@ -24,5 +24,10 @@
     <string name="settings">Configurações</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="dark_theme">Tema escuro</string>
-    <string name="notification_interval">Intervalo de notificação (em breve)</string>
+    <string name="notification_interval">Intervalo de notificação</string>
+    <string name="notification_interval_every_hour">A cada hora</string>
+    <string name="notification_interval_once_a_day">Uma vez por dia</string>
+    <string name="notification_interval_never">"Nunca "</string>
+    <string name="notification_title">Atualização de dependencias disponível</string>
+    <string name="notification_summary">Atualizações disponíveis</string>
 </resources>

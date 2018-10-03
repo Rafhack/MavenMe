@@ -32,7 +32,7 @@ class MyDependenciesInteractor {
         db.collection("users/${MavenMeApplication.user?.uid}/dependencies").get()
                 .addOnCompleteListener {
                     val myDependencies = arrayListOf<Dependency>()
-                    it.result.forEach { doc ->
+                    it.result?.forEach { doc ->
                         myDependencies.add(doc.toObject(Dependency::class.java))
                     }
                     callback(myDependencies)
@@ -44,7 +44,7 @@ class MyDependenciesInteractor {
                 .whereEqualTo("upToDate", true).get()
                 .addOnCompleteListener {
                     val myDependencies = arrayListOf<Dependency>()
-                    it.result.forEach { doc ->
+                    it.result?.forEach { doc ->
                         myDependencies.add(doc.toObject(Dependency::class.java))
                     }
                     callback(myDependencies)

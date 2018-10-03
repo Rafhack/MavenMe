@@ -28,15 +28,6 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait" />
-
-        <service
-            android:name=".notificationService.NotificationService"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MavenMe</string>
+    <string name="default_notification_channel_id" translatable="false">MavenMe_CH_01</string>
+    <string name="default_notification_channel_name" translatable="false">Dependencies version udpates</string>
     <string name="title_activity_my_dependencies">My dependencies</string>
     <string name="title_activity_maven_search">Search dependencies</string>
     <string name="sign_in_to_view_dependencies">To load personal dependencies, please attach a Google account</string>
@@ -23,5 +25,10 @@
     <string name="settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
     <string name="dark_theme">Dark theme</string>
-    <string name="notification_interval">Notification interval (soon)</string>
+    <string name="notification_interval">Notification interval</string>
+    <string name="notification_interval_every_hour">Every hour</string>
+    <string name="notification_interval_once_a_day">Once a day</string>
+    <string name="notification_interval_never">Never</string>
+    <string name="notification_title">Dependencies updates available</string>
+    <string name="notification_summary">Updates available</string>
 </resources>

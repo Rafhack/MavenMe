@@ -16,4 +16,9 @@
         <item quantity="other">Dependencies</item>
     </plurals>
 
+    <plurals name="notification_big_text_multiple">
+        <item quantity="one">%s and %s more</item>
+        <item quantity="other">%s and %s others</item>
+    </plurals>
+
 </resources>
