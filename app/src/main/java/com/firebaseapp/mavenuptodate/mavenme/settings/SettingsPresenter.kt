@@ -31,6 +31,10 @@ class SettingsPresenter : SettingsContract.Presenter {
         sp.edit().putInt(PREF_CHECK_INTERVAL, value).apply()
     }
 
+    override fun openPrivacyPolicy() {
+        view.openPrivacyPolicyScreen()
+    }
+
     override fun attach(view: SettingsContract.View) {
         this.view = view
     }

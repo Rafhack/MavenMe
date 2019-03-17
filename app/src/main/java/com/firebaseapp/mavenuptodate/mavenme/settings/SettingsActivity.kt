@@ -3,10 +3,10 @@ package com.firebaseapp.mavenuptodate.mavenme.settings
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View.GONE
 import com.firebaseapp.mavenuptodate.mavenme.MavenMeApplication
 import com.firebaseapp.mavenuptodate.mavenme.R
 import com.firebaseapp.mavenuptodate.mavenme.base.BaseProgressActivity
+import com.firebaseapp.mavenuptodate.mavenme.privacyPolicy.PrivacyPolicyActivity
 import kotlinx.android.synthetic.main.activity_base_progress.*
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -66,6 +66,10 @@ class SettingsActivity : BaseProgressActivity(), SettingsContract.View {
         return super.onSupportNavigateUp()
     }
 
+    override fun openPrivacyPolicyScreen() {
+        Intent(this, PrivacyPolicyActivity::class.java).apply { startActivity(this) }
+    }
+
     private fun setupView() {
         fab.hide()
 
@@ -77,6 +81,8 @@ class SettingsActivity : BaseProgressActivity(), SettingsContract.View {
         }
 
         ctlCheckInterval.setOnClickListener { showNotificationDialog() }
+
+        ctlPrivacyPolicy.setOnClickListener { presenter.openPrivacyPolicy() }
     }
 
     private fun showNotificationDialog() {

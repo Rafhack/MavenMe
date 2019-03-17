@@ -30,4 +30,5 @@
     <string name="notification_interval_never">"Nunca "</string>
     <string name="notification_title">Atualização de dependencias disponível</string>
     <string name="notification_summary">Atualizações disponíveis</string>
+    <string name="privacy_policy">Política de privacidade</string>
 </resources>
